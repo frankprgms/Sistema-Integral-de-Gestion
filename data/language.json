@@ -1,0 +1,25 @@
+{
+  "en": {
+    "languages": [ "English", "Spanish" ],
+    "win_title": "SIGER",
+    "header": "SIGER (Comprehensive Management and Reservations System)",
+    "subtitle_welcome_screen": "Please select your language to proceed",
+    "label_lang_welcome_screen": "Select Language:",
+    "btn_continue_welcome_screen": "START SYSTEM",
+    "footer": "Software Version 2026",
+    "btn_logout_dashboard": "EXIT SYSTEM",
+    "msg_logout_body": "Are you sure you want to close the current session?"
+  },
+  "es": {
+    "languages": [ "ingles", "español" ],
+    "win_title": "SIGER",
+    "header": "SIGER (Sistema Integral de Gestión y Reservas)",
+    "subtitle_welcome_screen": "Por favor seleccione su idioma para continuar",
+    "label_lang_welcome_screen": "Seleccionar idioma:",
+    "btn_continue_welcome_screen": "INICIAR SISTEMA",
+    "footer": "Versión de Software 2026",
+    "btn_logout_dashboard": "SALIR DEL SISTEMA",
+    "msg_logout_body": "¿Está seguro de que desea cerrar la sesión actual?"
+  }
+
+}
