@@ -1,13 +1,12 @@
+﻿
 from file_manager.LogHandler import LogHandler
+from file_manager.manager_json import ManagerJson
+from ui.welcome_view import WelcomeView
 
 
-logs_folder= LogHandler("log")
-print ("hola mundo")
-
-logs_folder.save("error","prueba error01")
-
-errors=logs_folder.read("error")
-
-
-print(errors2)
+if __name__ == "__main__":
+    logs_folder= LogHandler("log")
+    file_manager = ManagerJson("data",logs_folder)
+    app = WelcomeView(file_manager)
+    app.mainloop()
 
