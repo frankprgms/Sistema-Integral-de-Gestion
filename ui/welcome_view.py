@@ -9,9 +9,7 @@ class WelcomeView(ctk.CTk):
         super().__init__()
 
         # --- CONFIG GLOBAL CTK ---
-        # Definición del estilo base de la librería
-        ctk.set_appearance_mode("light")
-        ctk.set_default_color_theme("blue")
+        
 
         # --- DATOS Y CONFIGURACIÓN BASE ---
         # Se inyecta la dependencia del gestor de archivos para cargar recursos
