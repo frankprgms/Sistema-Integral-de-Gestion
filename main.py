@@ -12,6 +12,7 @@ from app_logic.customer import cliente
 if __name__ == "__main__":
     logs_folder= LogHandler("log")
     file_manager = ManagerJson("data",logs_folder)
+    
     app = WelcomeView(file_manager)
     app.mainloop()
 
