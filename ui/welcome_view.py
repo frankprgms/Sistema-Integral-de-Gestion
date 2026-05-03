@@ -1,4 +1,5 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
+from app_logic.reservation import Reservation
 
 class WelcomeView(ctk.CTk):
     """
@@ -16,6 +17,7 @@ class WelcomeView(ctk.CTk):
         self._file_manager = file_manager
         self._all_languages = file_manager.load("language")
         self._all_themes = file_manager.load("themes")
+        
 
         # Extracción de llaves para navegación técnica (independiente de la traducción)
         self._lang_keys = list(self._all_languages.keys())
@@ -238,4 +240,5 @@ class WelcomeView(ctk.CTk):
     def _start_system(self):
         """Finaliza el ciclo de vida de la vista de bienvenida."""
         print(f"Configuración finalizada: {self._current_lang} | {self._theme['name']}")
+                
         self.destroy()

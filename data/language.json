@@ -8,7 +8,14 @@
     "btn_continue_welcome_screen": "START SYSTEM",
     "footer": "Software Version 2026",
     "btn_logout_dashboard": "EXIT SYSTEM",
-    "msg_logout_body": "Are you sure you want to close the current session?"
+    "msg_logout_body": "Are you sure you want to close the current session?",
+    "errors": {
+      "err_customer_empty": "Customer field cannot be empty.",
+      "err_service_empty": "Service field cannot be empty.",
+      "err_duration_invalid": "Duration must be a positive number.",
+      "err_status_invalid": "Invalid status. Use: ",
+      "err_log_write": "Failed to write to log file."
+    }
   },
   "es": {
     "languages": [ "ingles", "español" ],
@@ -19,7 +26,14 @@
     "btn_continue_welcome_screen": "INICIAR SISTEMA",
     "footer": "Versión de Software 2026",
     "btn_logout_dashboard": "SALIR DEL SISTEMA",
-    "msg_logout_body": "¿Está seguro de que desea cerrar la sesión actual?"
+    "msg_logout_body": "¿Está seguro de que desea cerrar la sesión actual?",
+    "errors": {
+      "err_customer_empty": "El cliente no puede estar vacío.",
+      "err_service_empty": "El servicio no puede estar vacío.",
+      "err_duration_invalid": "La duración debe ser un número positivo.",
+      "err_status_invalid": "Estado no válido. Use: ",
+      "err_log_write": "Error al escribir en el archivo de registro."
+    }
   }
 
 }
