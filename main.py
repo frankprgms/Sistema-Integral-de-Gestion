@@ -1,18 +1,24 @@
 ﻿
+from pathlib import Path
+ 
 from file_manager.LogHandler import LogHandler
 from file_manager.manager_json import ManagerJson
 from ui.welcome_view import WelcomeView
 from app_logic.customer import cliente
-
-
-#cliente1=cliente(customer_id=1,name="frank",document=1010101010,email="email@email.com",phone=1010101010,address="calle 5 a l",state="activo",membership="gold")
-
-
-""""""
+ 
+ 
 if __name__ == "__main__":
-    logs_folder= LogHandler("log")
-    file_manager = ManagerJson("data",logs_folder)
-    
+    # Ruta base del proyecto, es decir, la carpeta donde está este archivo main.py
+    BASE_DIR = Path(__file__).resolve().parent
+ 
+    # Carpeta donde se guardarán los logs
+    logs_folder = LogHandler(str(BASE_DIR / "log"))
+ 
+    # Carpeta donde están los archivos JSON o datos del sistema
+    file_manager = ManagerJson(str(BASE_DIR / "data"), logs_folder)
+ 
+    # Se carga la vista principal del sistema
     app = WelcomeView(file_manager)
+ 
+    # Se ejecuta la aplicación
     app.mainloop()
-
