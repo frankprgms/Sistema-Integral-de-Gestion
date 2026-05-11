@@ -6,7 +6,7 @@ from file_manager.manager_json import ManagerJson
 from ui.welcome_view import WelcomeView
 from app_logic.customer import cliente
  
- 
+
 if __name__ == "__main__":
     # Ruta base del proyecto, es decir, la carpeta donde está este archivo main.py
     BASE_DIR = Path(__file__).resolve().parent

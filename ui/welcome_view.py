@@ -1,5 +1,6 @@
 ﻿import customtkinter as ctk
 from app_logic.reservation import Reservation
+from ui.navigation import Navigation as ng
 
 class WelcomeView(ctk.CTk):
     """
@@ -214,7 +215,6 @@ class WelcomeView(ctk.CTk):
         new_lang_names = self._texts.get("languages", [])
         if new_lang_names:
             self._lang_combo.configure(values=new_lang_names)
-            # Mantenemos la selección sincronizada usando el índice técnico
             current_idx = self._lang_keys.index(self._current_lang)
             self._lang_combo.set(new_lang_names[current_idx])
 
@@ -239,6 +239,27 @@ class WelcomeView(ctk.CTk):
 
     def _start_system(self):
         """Finaliza el ciclo de vida de la vista de bienvenida."""
-        print(f"Configuración finalizada: {self._current_lang} | {self._theme['name']}")
-                
-        self.destroy()
+
+        print(
+            f"Configuración finalizada: "
+            f"{self._current_lang} | "
+            f"{self._theme['name']}"
+        )
+
+
+        self.withdraw()
+
+        ventana_principal = ng(
+            self,
+            self._texts,
+            self._theme,
+            self._file_manager,
+            self._current_lang
+        )
+
+        # Cuando se cierre la principal,
+        # se destruye completamente la app
+        ventana_principal.protocol(
+            "WM_DELETE_WINDOW",
+            self.destroy
+        )

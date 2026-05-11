@@ -1,4 +1,17 @@
 {
+  "eco_vehicle": {
+    "name": "Eco Vehicle",
+    "bg_window": "#f1f2f6",
+    "bg_container": "#ffffff",
+    "primary_color": "#2ecc71",
+    "text_main": "#2f3542",
+    "text_secondary": "#747d8c",
+    "border_color": "#ced6e0",
+    "contrast": "#3498db",
+    "error": "#e74c3c",
+    "font_title_size": 19,
+    "font_body_size": 11
+  },
   "midnight_neon": {
     "name": "Midnight Neon",
     "bg_window": "#090909",
@@ -22,19 +35,6 @@
     "border_color": "#485460",
     "contrast": "#ffdd59",
     "error": "#ff5e57",
-    "font_title_size": 19,
-    "font_body_size": 11
-  },
-  "eco_vehicle": {
-    "name": "Eco Vehicle",
-    "bg_window": "#f1f2f6",
-    "bg_container": "#ffffff",
-    "primary_color": "#2ecc71",
-    "text_main": "#2f3542",
-    "text_secondary": "#747d8c",
-    "border_color": "#ced6e0",
-    "contrast": "#3498db",
-    "error": "#e74c3c",
     "font_title_size": 19,
     "font_body_size": 11
   },
