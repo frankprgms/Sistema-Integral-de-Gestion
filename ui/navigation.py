@@ -15,6 +15,7 @@ class Navigation(MainShell):
         self.theme = current_theme
         self.file_manager = file_manager
         self.current_lang = current_lang
+        self.customers_list = []
 
         # Llamada para generar la botonera de navegación
         self.agg_buttons()
@@ -79,7 +80,8 @@ class Navigation(MainShell):
             parent=self.content_frame,
             current_theme=self.theme,
             language=self.texts,
-            file_manager=self.file_manager
+            file_manager=self.file_manager,
+            customers_list=self.customers_list
         )
         self.create_customers.pack(fill="both", expand=True)
 

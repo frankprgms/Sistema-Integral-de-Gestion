@@ -1,6 +1,9 @@
 {
   "en": {
-    "languages": [ "English", "Spanish" ],
+    "languages": [
+      "English",
+      "Spanish"
+    ],
     "win_title": "SIGER",
     "header": "SIGER (Comprehensive Management and Reservations System)",
     "status_online_dashboard": "SYSTEM ONLINE",
@@ -26,8 +29,21 @@
     "crt_customer_membership": "Membership",
     "crt_customer_create_btn": "Create Customer",
     "crt_customer_clear_btn": "Clear",
-    "crt_customer_colms": [ "active", "name", "customer_id", "document", "email", "phone", "membership" ],
+    "crt_customer_colms": [
+      "active",
+      "name",
+      "customer id",
+      "document",
+      "email",
+      "phone",
+      "address",
+      "membership"
+    ],
 
+    "crt_customer_empty_field": "The field {} cannot be empty.",
+    "crt_customer_letters_field": "The field {} cannot contain letters.",
+    "crt_customer_numbers_field": "The field {} cannot contain numbers.",
+    "crt_customer_symbol_field": "The field {} requires the @ symbol.",
     "errors": {
       "err_customer_empty": "Customer field cannot be empty.",
       "err_service_empty": "Service field cannot be empty.",
@@ -37,7 +53,10 @@
     }
   },
   "es": {
-    "languages": [ "ingles", "español" ],
+    "languages": [
+      "ingles",
+      "español"
+    ],
     "win_title": "SIGER",
     "header": "SIGER (Sistema Integral de Gestión y Reservas)",
     "status_online_dashboard": "SISTEMA EN LÍNEA",
@@ -63,7 +82,19 @@
     "crt_customer_state": "Activo",
     "crt_customer_create_btn": "Crear Cliente",
     "crt_customer_clear_btn": "Limpiar",
-    "crt_customer_colms": [ "activo", "nombre", "id_cliente", "documento", "correo electrónico", "teléfono", "membresía" ],
+    "crt_customer_empty_field": "El campo {} no puede estar vacío",
+    "crt_customer_letters_field": "El campo {} no puede tener letras.",
+    "crt_customer_numbers_field": "El campo {} no puede tener numeros.",
+    "crt_customer_symbol_field": "El campo {} requiere tener @.",
+    "crt_customer_colms": [
+      "activo",
+      "nombre",
+      "id cliente",
+      "documento",
+      "correo electrónico",
+      "teléfono",
+      "membresía"
+    ],
     "errors": {
       "err_customer_empty": "El cliente no puede estar vacío.",
       "err_service_empty": "El servicio no puede estar vacío.",
@@ -72,5 +103,4 @@
       "err_log_write": "Error al escribir en el archivo de registro."
     }
   }
-
 }

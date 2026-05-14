@@ -1,22 +1,23 @@
 import customtkinter as ctk
 from tkinter import ttk
+from app_logic.customer import cliente
 
-# Clase principal para la vista de creación de clientes basada en un marco de CustomTkinter
+# Clase principal para la vista de creacion de clientes basada en un marco de CustomTkinter
 class CreateCustomerView(ctk.CTkFrame):
 
-    def __init__(self, parent, current_theme, language, file_manager):
-        # Inicialización del componente con el tema visual y configuración de idiomas
+    def __init__(self, parent, current_theme, language, file_manager,customers_list):
+        # Inicializacion del componente con el tema visual y configuracion de idiomas
         super().__init__(parent, fg_color=current_theme["bg_window"])
 
         self.texts = language
         self.theme = current_theme
-        self.customers = []
+        self.customers_list = customers_list
 
-        # Ejecución de la configuración de la interfaz de usuario
+        # Ejecucion de la configuracion de la interfaz de usuario
         self._setup_ui()
 
     def _setup_ui(self):
-        # Configuración de la cuadrícula principal y el título de la vista
+        # Configuracion de la cuadricula principal y el titulo de la vista
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(4, weight=1)
 
@@ -28,7 +29,7 @@ class CreateCustomerView(ctk.CTkFrame):
         )
         self.title_label.grid(row=0, column=0, pady=(20, 10))
 
-        # Creación del contenedor principal para el formulario de datos
+        # Creacion del contenedor principal para el formulario de datos
         self.form_frame = ctk.CTkFrame(
             self,
             fg_color=self.theme["bg_container"],
@@ -40,7 +41,7 @@ class CreateCustomerView(ctk.CTkFrame):
         self.form_frame.grid_columnconfigure(0, weight=1)
         self.form_frame.grid_columnconfigure(1, weight=1)
 
-        # Definición de los campos de entrada de texto (Nombre, ID, Documento, etc.)
+        # Definicion de los campos de entrada de texto (Nombre, ID, Documento, etc.)
         self._create_field(row=0, column=0, label=self.texts.get("crt_customer_name", "Name"))
         self.entry_name = self.current_entry
 
@@ -59,7 +60,7 @@ class CreateCustomerView(ctk.CTkFrame):
         self._create_field(row=2, column=1, label=self.texts.get("crt_customer_address", "Address"))
         self.entry_address = self.current_entry
 
-        # Configuración del interruptor (switch) para el estado activo/inactivo del cliente
+        # Configuracion del interruptor (switch) para el estado activo/inactivo del cliente
         self.state_container = ctk.CTkFrame(
             self.form_frame,
             fg_color=self.theme["bg_window"],
@@ -84,7 +85,7 @@ class CreateCustomerView(ctk.CTkFrame):
         )
         self.state_switch.pack(anchor="w", padx=12, pady=(5, 10))
 
-        # Configuración del menú desplegable (combobox) para el tipo de membresía
+        # Configuracion del menu desplegable (combobox) para el tipo de membresia
         self.membership_container = ctk.CTkFrame(
             self.form_frame,
             fg_color=self.theme["bg_window"],
@@ -121,7 +122,7 @@ class CreateCustomerView(ctk.CTkFrame):
         )
         self.message_label.grid(row=2, column=0, pady=(5, 10))
 
-        # Contenedor y botones de acción (Crear y Limpiar)
+        # Contenedor y botones de accion (Crear y Limpiar)
         self.button_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.button_frame.grid(row=3, column=0, pady=10)
 
@@ -145,7 +146,7 @@ class CreateCustomerView(ctk.CTkFrame):
         )
         self.clear_button.pack(side="left", padx=10)
 
-        # Configuración de la tabla (Treeview) para visualizar los clientes registrados
+        # Configuracion de la tabla (Treeview) para visualizar los clientes registrados
         self.table_container = ctk.CTkFrame(
             self,
             fg_color=self.theme["bg_container"],
@@ -157,21 +158,21 @@ class CreateCustomerView(ctk.CTkFrame):
         self.table_container.grid_rowconfigure(0, weight=1)
         self.table_container.grid_columnconfigure(0, weight=1)
 
-        columns = self.texts.get("crt_customer_colms", ["active","name", "customer_id", "document", "email", "phone", "membership" ])
+        self.columns = self.texts.get("crt_customer_colms", ["active","name", "customer id", "document", "email", "phone","address", "membership" ])
 
         self.customer_table = ttk.Treeview(
             self.table_container,
-            columns=columns,
+            columns=self.columns,
             show="headings"
         )
 
-        for column in columns:
+        for column in self.columns:
             self.customer_table.heading(column, text=column.upper())
             self.customer_table.column(column, width=120, anchor="center")
 
         self.customer_table.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
-    # Método auxiliar para generar dinámicamente campos de texto con etiqueta
+    # Metodo auxiliar para generar dinimicamente campos de texto con etiqueta
     def _create_field(self, row, column, label):
         container = ctk.CTkFrame(
             self.form_frame,
@@ -200,19 +201,91 @@ class CreateCustomerView(ctk.CTkFrame):
         )
         self.current_entry.grid(row=1, column=0, padx=12, pady=(0, 10), sticky="ew")
 
-    # Recopila la información de todos los campos y la imprime en consola
+    # Recopila la informacion de todos los campos y la imprime en consola
+    def validate_correct_parameters(self):
+        if not self.entry_name.get(): 
+            message = self.texts["crt_customer_empty_field"].format(self.columns [1])
+            self.show_message(message)
+            return 0
+            
+        if not self.entry_customer_id.get(): 
+            message = self.texts["crt_customer_empty_field"].format(self.columns [2])
+            
+            self.show_message(message)
+            return 0
+        
+        if not self.entry_document.get(): 
+            message = self.texts["crt_customer_empty_field"].format(self.columns [3])
+            self.show_message(message)
+            return 0
+        
+        if not self.entry_email.get(): 
+            message = self.texts["crt_customer_empty_field"].format(self.columns [4])
+            self.show_message(message)
+            return 0
+        if not self.entry_phone.get(): 
+            message = self.texts["crt_customer_empty_field"].format(self.columns [5])
+            self.entry_phone.delete(0, "end")
+            self.show_message(message)
+            return 0   
+        if not self.entry_address.get(): 
+            message = self.texts["crt_customer_empty_field"].format(self.columns [6])
+            self.show_message(message)
+            return 0
+        if not self.membership_combo.get(): 
+            message = self.texts["crt_customer_empty_field"].format(self.columns [7])
+            self.show_message(message)
+            return 0
+        
+        if self.entry_name.get().isdigit():
+            message = self.texts["crt_customer_numbers_field"].format(self.columns [2])
+            self.show_message(message)
+            self.entry_name.delete(0, "end")
+            return 0
+        
+        if self.entry_document.get().isalpha():
+            message = self.texts["crt_customer_letters_field"].format(self.columns [3])
+            self.show_message(message)
+            self.entry_document.delete(0, "end")
+            return 0
+        if not "@" in self.entry_email.get():
+            message = self.texts["crt_customer_symbol_field"].format(self.columns [4])
+            self.show_message(message)
+            self.entry_email.delete(0, "end")
+            return 0
+        if self.entry_phone.get().isalpha():
+            message = self.texts["crt_customer_letters_field"].format(self.columns [5])
+            self.show_message(message)
+            self.entry_phone.delete(0, "end")
+            return 0
+        self.show_message("")
+        return 1
     def print_customer_data(self):
-        data = {
-            "name": self.entry_name.get(),
-            "customer_id": self.entry_customer_id.get(),
-            "document": self.entry_document.get(),
-            "email": self.entry_email.get(),
-            "phone": self.entry_phone.get(),
-            "address": self.entry_address.get(),
-            "state": self.state_switch.get(),
-            "membership": self.membership_combo.get()
-        }
-        print(data)
+        
+        if(self.validate_correct_parameters()==0):
+            print("error de datos")
+            return
+        else:
+            print("complete parametros")
+                
+            data = {
+                
+                "name": self.entry_name.get(),
+                "customer_id": self.entry_customer_id.get(),
+                "document": self.entry_document.get(),
+                "email": self.entry_email.get(),
+                "phone": self.entry_phone.get(),
+                "address": self.entry_address.get(),
+                "state": self.state_switch.get(),
+                "membership": self.membership_combo.get()
+            }
+            loki=cliente(data=data)
+            
+            self.customers_list.append(loki)
+            self.refresh_table()
+            
+        
+        
 
     # Restablece todos los campos del formulario a sus valores predeterminados
     def clear_fields(self):
@@ -225,7 +298,26 @@ class CreateCustomerView(ctk.CTkFrame):
         self.membership_combo.set("")
         self.state_switch.deselect()
         self.message_label.configure(text="")
+        for item in self.customer_table.get_children():
+            self.customer_table.delete(item)
 
-    # Actualiza la etiqueta de mensaje para mostrar información al usuario
+    # Actualiza la etiqueta de mensaje para mostrar informacion al usuario
     def show_message(self, text):
         self.message_label.configure(text=text)
+    def refresh_table(self):
+        # 1. Limpiar todos los datos actuales de la tabla
+        for item in self.customer_table.get_children():
+            self.customer_table.delete(item)
+
+        # 2. Insertar los datos actualizados
+        for customer in self.customers_list:
+            self.customer_table.insert("", "end", values=(
+                "Activo" if customer._state else "Inactivo",
+                customer.name,
+                customer.customer_id,
+                customer.document,
+                customer.email,
+                customer.phone,
+                customer.address,
+                customer.membership
+            ))

@@ -23,7 +23,10 @@ class MainShell(ctk.CTkToplevel):
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
         
-        self.state('zoomed') 
+        try:
+            self.state('zoomed')  # Windows
+        except:
+            self.attributes('-zoomed', True)  # Linux
         
         self._setup_ui()
         self._apply_visuals()

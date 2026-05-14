@@ -1,10 +1,10 @@
 class cliente():
-    def __init__(self,**data):
-        self.update_information(**data)
+    def __init__(self,data):
+        self.update_information(data)
         self._purchase_history={}
       
         
-    def update_information(self,**data):
+    def update_information(self,data):
         self._name=data.get("name", None)        
         self._customer_id=data.get("customer_id", None) 
         self._document=data.get("document", None) 
