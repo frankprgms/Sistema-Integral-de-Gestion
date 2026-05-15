@@ -3,78 +3,78 @@ Una clase Reserva que integre cliente, servicio, duración y estado,
 e implemente confirmación, cancelación y procesamiento con
 manejo de excepciones
 """
-
 class Reservation:
-    def __init__(self,language,  customer, service, duration=0):
-        # Inicialización de atributos privados
-        self._customer = customer
-        self._language = language
+    def __init__(self, reservation_id, customer_id, main_event_date, payment_method, logs_folder):
+        self.reservation_id = reservation_id
+        self.customer_id = customer_id
+        self.main_event_date = main_event_date
+        self.payment_method = payment_method
         
-        self._service = service
-        self._duration = duration
-        self._status = "Pending"  # Estado inicial por defecto
+        # Atributo privado para el manejo de logs
+        self.__logs_folder = logs_folder
+        
+        self.services_list = []
+        self.global_status = "Pending"
+        self.total_amount = 0.0
 
+    def add_service(self, service_instance):
+        try:
+            if service_instance.validate_parameters():
+                self.services_list.append(service_instance)
+                self.calculate_grand_total()
+                return True
+            else:
+                error = f"ERROR [Validation]: Parametros invalidos en {service_instance.service_name} (ID: {service_instance.service_id})"
+                self.__logs_folder.save(error, error)
+                return False
+        except Exception as e:
+            error = f"CRITICAL ERROR [AddService]: No se pudo agregar el servicio. Detalle: {e}"
+            self.__logs_folder.save(error, error)
+            return False
 
-    def confirmation(self):
-        """Confirma la reserva si el estado actual lo permite."""
-        pass
+    def confirm_reservation(self):
+        try:
+            if not self.services_list:
+                raise ValueError("No se puede confirmar una reserva sin servicios.")
+            
+            self.global_status = "Confirmed"
+            # Lógica para cambiar estado a todos los servicios internos
+            for service in self.services_list:
+                service.change_status("Confirmed")
+            return True
+        except Exception as e:
+            error = f"CRITICAL ERROR [Confirm]: Fallo al confirmar reserva {self.reservation_id}. Detalle: {e}"
+            self.__logs_folder.save(error, error)
+            return False
 
-    def cancellation(self):
-        """Cancela la reserva y reinicia la duración."""
-        pass
+    def cancel_reservation(self):
+        try:
+            self.global_status = "Cancelled"
+            for service in self.services_list:
+                service.change_status("Cancelled")
+            return True
+        except Exception as e:
+            error = f"CRITICAL ERROR [Cancel]: Fallo al cancelar reserva {self.reservation_id}. Detalle: {e}"
+            self.__logs_folder.save(error, error)
+            return False
 
-    def processing(self, data_reservation):
-        """Procesa la reserva con nuevos datos, validando la entrada."""
-        pass
+    def process_payment(self):
+        try:
+            if self.total_amount <= 0:
+                raise ArithmeticError("El monto total debe ser mayor a cero para procesar pago.")
+            
+            self.global_status = "Paid"
+            return True
+        except Exception as e:
+            error = f"CRITICAL ERROR [Payment]: Error en procesamiento de pago {self.reservation_id}. Detalle: {e}"
+            self.__logs_folder.save(error, error)
+            return False
 
-
-    # --- Getters (Propiedades) ---
-
-    @property
-    def customer(self):
-        return self._customer
-
-    @property
-    def service(self):
-        return self._service
-
-    @property
-    def duration(self):
-        return self._duration
-
-    @property
-    def status(self):
-        return self._status
-
-    # --- Setters ---
-
-    @customer.setter
-    def customer(self, value):
-        if not value:
-            raise ValueError(self._language["errors"]["err_customer_empty"])
-        self._customer = value
-
-    @service.setter
-    def service(self, value):
-        if not value:
-            raise ValueError(self._language["errors"]["err_service_empty"])
-        self._service = value
-
-    @duration.setter
-    def duration(self, value):
-        if not isinstance(value, (int, float)) or value < 0:
-            raise ValueError(self._language["errors"]["err_duration_invalid"])
-        self._duration = value
-
-    @status.setter
-    def status(self, value):
-        estados_validos = ["Pending", "Confirmed", "Cancelled", "Processing"]
-        if value not in estados_validos:
-            raise ValueError(f"{self._language['errors']['err_status_invalid']} {estados_validos}")
-        self._status = value
-
-
-
-
-
-
+    def calculate_grand_total(self):
+        try:
+            self.total_amount = sum(s.calculate_total_cost() for s in self.services_list)
+            return self.total_amount
+        except Exception as e:
+            error = f"CRITICAL ERROR [TotalCalculation]: Fallo en calculo de montos. Detalle: {e}"
+            self.__logs_folder.save(error, error)
+            return 0.0
