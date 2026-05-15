@@ -28,7 +28,7 @@ class ManagerJson:
             return True
         except Exception as e:
             error=(f"CRITICAL ERROR [Save]: No se pudo escribir {file_name}. Detalle: {e}")
-            self.__logs_folder.save("error",error)
+            self.logs_folder.save(error,error)
             return False
 
     def update_data(self, file_name, section, key, value):

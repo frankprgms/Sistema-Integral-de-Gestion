@@ -105,6 +105,7 @@ class CreateCustomerView(ctk.CTkFrame):
 
         self.membership_combo = ctk.CTkComboBox(
             self.membership_container,
+            text_color=self.theme["text_secondary"],
             values=["Basic", "Premium", "Gold", "VIP"],
             fg_color=self.theme["bg_container"],
             border_color=self.theme["border_color"],
@@ -279,9 +280,9 @@ class CreateCustomerView(ctk.CTkFrame):
                 "state": self.state_switch.get(),
                 "membership": self.membership_combo.get()
             }
-            loki=cliente(data=data)
+            Customer=cliente(data=data)
             
-            self.customers_list.append(loki)
+            self.customers_list.append(Customer)
             self.refresh_table()
             
         
